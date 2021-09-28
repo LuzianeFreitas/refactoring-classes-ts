@@ -1,4 +1,4 @@
-import {
+import React, {
   useEffect,
   useRef,
   useState,
@@ -8,6 +8,7 @@ import {
 import { useField } from '@unform/core';
 
 import { Container } from './styles';
+
 
 const Input = ({ name, icon: Icon, ...rest }) => {
   const inputRef = useRef(null);
