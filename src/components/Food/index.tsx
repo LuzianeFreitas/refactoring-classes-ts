@@ -8,14 +8,14 @@ import { FoodObject } from '../../@types/types';
 
 import { Container } from './styles';
 interface FoodProps {
-  available: Boolean,
+  available: boolean,
   food: FoodObject,
   handleEditFood: (food: FoodObject) => void,
   handleDelete: (id: number) => void;
 }
 
 export function Food({available, food, handleEditFood, handleDelete} : FoodProps) {
-  const [isAvailable, setIsAvailable] =  useState<Boolean>(available);
+  const [isAvailable, setIsAvailable] =  useState<boolean>(available);
 
   async function toggleAvailable(){
 

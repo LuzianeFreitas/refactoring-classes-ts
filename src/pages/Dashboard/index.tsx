@@ -1,7 +1,8 @@
 import { Component, useEffect, useState } from 'react';
 
-import Header from '../../components/Header';
+
 import { api } from '../../services/api';
+import { Header } from '../../components/Header';
 import { Food } from '../../components/Food';
 import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
@@ -16,8 +17,8 @@ import { FoodsContainer } from './styles';
 export function Dashboard(){
   const [foods, setFoods] = useState<FoodObject[]>([] as FoodObject[]);
   const [editingFood, setEditingFood] = useState<FoodObject>({} as FoodObject);
-  const [modalOpen, setModalOpen] = useState<Boolean>(false);
-  const [editModalOpen, setEditModalOpen] = useState<Boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     api.get('/foods')
@@ -54,7 +55,7 @@ export function Dashboard(){
     }
   }
 
-  async function handleDeleteFood(id: Number){
+  async function handleDeleteFood(id: number){
     await api.delete(`/foods/${id}`);
 
     const foodsFiltered = foods.filter(food => food.id !== id);
