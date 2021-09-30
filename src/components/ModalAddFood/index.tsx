@@ -5,6 +5,7 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
+
 class ModalAddFood extends Component {
   constructor(props) {
     super(props);
