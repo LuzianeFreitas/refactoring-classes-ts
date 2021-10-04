@@ -1,11 +1,11 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import { api } from '../../services/api';
 import { Header } from '../../components/Header';
 import { Food } from '../../components/Food';
-import ModalAddFood from '../../components/ModalAddFood';
-import ModalEditFood from '../../components/ModalEditFood';
+import {ModalAddFood} from '../../components/ModalAddFood';
+import {ModalEditFood} from '../../components/ModalEditFood';
 
 
 
@@ -15,8 +15,8 @@ import {FoodObject} from '../../@types/types';
 import { FoodsContainer } from './styles';
 
 export function Dashboard(){
-  const [foods, setFoods] = useState<FoodObject[]>([] as FoodObject[]);
-  const [editingFood, setEditingFood] = useState<FoodObject>({} as FoodObject);
+  const [foods, setFoods] = useState<FoodObject[]>([]);
+  const [editingFood, setEditingFood] = useState({} as FoodObject);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
@@ -32,7 +32,7 @@ export function Dashboard(){
         available: true,
       });
 
-      setFoods([...foods, response.data]);
+      setFoods((foods) => [...foods, response.data]);
     } catch (err) {
       console.log(err);
     }
@@ -40,13 +40,13 @@ export function Dashboard(){
 
   async function handleUpdateFood(food: FoodObject){
     try {
-      const foodUpdated = await api.put(
+      const {data: foodUpdated} = await api.put(
         `/foods/${editingFood.id}`,
         { ...editingFood, ...food },
       );
 
       const foodsUpdated = foods.map(f =>
-        f.id !== foodUpdated.data.id ? f : foodUpdated.data,
+        f.id !== foodUpdated.id ? f : foodUpdated.data,
       );
 
       setFoods(foodsUpdated);
@@ -75,7 +75,7 @@ export function Dashboard(){
 
   function handleEditFood(food: FoodObject) {
     setEditingFood(food);
-    setModalOpen(true);
+    setEditModalOpen(true);
   }
 
 

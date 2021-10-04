@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 
@@ -8,14 +8,13 @@ import { FoodObject } from '../../@types/types';
 
 import { Container } from './styles';
 interface FoodProps {
-  available: boolean,
   food: FoodObject,
   handleEditFood: (food: FoodObject) => void,
   handleDelete: (id: number) => void;
 }
 
-export function Food({available, food, handleEditFood, handleDelete} : FoodProps) {
-  const [isAvailable, setIsAvailable] =  useState<boolean>(available);
+export function Food({food, handleEditFood, handleDelete} : FoodProps) {
+  const [isAvailable, setIsAvailable] =  useState<boolean>(food.available);
 
   async function toggleAvailable(){
 

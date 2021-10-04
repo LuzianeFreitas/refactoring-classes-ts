@@ -17,12 +17,12 @@
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png"
     },
     {
-      "id": 3,
-      "name": "A la Camarón",
-      "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares.",
-      "price": "25.90",
-      "available": false,
-      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+      "image": "https://img77.uenicdn.com/cdn-cgi/image/width=584,fit=crop,f=auto/image/upload/v1578007607/business/a5eac5bc-e732-436a-aa71-611b1798b8a9/IMG-20191202-WA0000jpg.jpg",
+      "name": "Estrogonofe",
+      "price": "19.90",
+      "description": "Estrogonofe de frango com arroz branco",
+      "available": true,
+      "id": 3
     }
   ]
 }
