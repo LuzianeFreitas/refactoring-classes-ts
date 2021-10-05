@@ -17,12 +17,15 @@ import { FoodsContainer } from './styles';
 export function Dashboard(){
   const [foods, setFoods] = useState<FoodObject[]>([]);
   const [editingFood, setEditingFood] = useState({} as FoodObject);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    api.get('/foods')
-      .then(response => setFoods(response.data));
+    async function loadFoods() {
+      const foods = await api.get('/foods')
+      setFoods(foods.data)
+    }
+    loadFoods()
   },[])
 
   async function handleAddFood(food: FoodObject){
@@ -40,15 +43,16 @@ export function Dashboard(){
 
   async function handleUpdateFood(food: FoodObject){
     try {
-      const {data: foodUpdated} = await api.put(
+      const foodUpdated = await api.put(
         `/foods/${editingFood.id}`,
-        { ...editingFood, ...food },
+        { ...editingFood, ...food }
       );
-
-      const foodsUpdated = foods.map(f =>
-        f.id !== foodUpdated.id ? f : foodUpdated.data,
+    
+      const foodsUpdated = foods.map((food) =>
+        food.id !== foodUpdated.data.id ? food : foodUpdated.data
       );
-
+        
+        
       setFoods(foodsUpdated);
     } catch (err) {
       console.log(err);
@@ -63,32 +67,30 @@ export function Dashboard(){
     setFoods(foodsFiltered);
   }
 
+  function handleEditFood(food: FoodObject) {
+    setEditingFood(food);
+    setIsEditModalOpen(true);
+  }
+
   function toggleModal() {
 
-    setModalOpen(!modalOpen);
+    setIsAddModalOpen((state) => !state);
   }
 
   function toggleEditModal() {
 
-   setEditModalOpen(!editModalOpen);
+   setIsEditModalOpen((state) => !state);
   }
-
-  function handleEditFood(food: FoodObject) {
-    setEditingFood(food);
-    setEditModalOpen(true);
-  }
-
-
     return (
       <>
         <Header openModal={toggleModal} />
         <ModalAddFood
-          isOpen={modalOpen}
+          isOpen={isAddModalOpen}
           setIsOpen={toggleModal}
           handleAddFood={handleAddFood}
         />
         <ModalEditFood
-          isOpen={editModalOpen}
+          isOpen={isEditModalOpen}
           setIsOpen={toggleEditModal}
           editingFood={editingFood}
           handleUpdateFood={handleUpdateFood}
